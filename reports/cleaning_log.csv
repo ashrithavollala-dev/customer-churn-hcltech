@@ -1,0 +1,20 @@
+step,rows_or_values_affected,action,reason
+Duplicate rows,30,"Dropped exact duplicate rows (1,050 -> 1020)",Same snapshot recorded twice; would double-count customers
+Duplicate column,0,"Filled missing monthly_charge_current from bill_amount, then dropped bill_amount",bill_amount equals monthly_charge_current on all 1020 rows (ignoring sign)
+Negative values,8,monthly_charge_current: replaced with absolute value,A charge / usage hours cannot be negative; sign error
+Negative values,5,usage_hours_m1: replaced with absolute value,A charge / usage hours cannot be negative; sign error
+Negative values,5,discount_amount: negative set to 0,A negative discount is invalid; treated as no discount
+Out-of-range values,4,last_csat_score outside 1-5 set to NaN,CSAT is a 1-5 scale; 0/7/9 are recording errors
+Inconsistent labels,20,contract_type variants -> 'Month-to-month',Same category spelled differently would become separate categories
+Inconsistent labels,10,payment_method variants -> 'Autopay',Same category spelled differently would become separate categories
+Data-quality note,9,"Documented only, not changed",Month-to-month (messy label) but has a contract end date; true contract unknown
+Missing values,49,last_csat_score: csat_missing flag + train median (4.0),"Fill values learned on train only, applied to all splits"
+Missing values,0,"usage_hours_m1: filled from m2, then m3","Fill values learned on train only, applied to all splits"
+Missing values,30,usage_hours_m2: mean of m1 and m3,"Fill values learned on train only, applied to all splits"
+Missing values,20,usage_hours_m3: filled from m2,"Fill values learned on train only, applied to all splits"
+Missing values,15,app_logins_last_30d: train median (10),"Fill values learned on train only, applied to all splits"
+Missing values,0,discount_amount: 0,"Fill values learned on train only, applied to all splits"
+Missing values,18,acquisition_channel: 'Unknown',"Fill values learned on train only, applied to all splits"
+Missing values,12,region: 'Unknown',"Fill values learned on train only, applied to all splits"
+Valid blanks,565,contract_end_date left blank,Month-to-month customers have no contract end date
+Valid blanks,24,last_payment_date left blank; bill_unpaid_flag created,Blank means the last bill is unpaid

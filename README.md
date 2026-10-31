@@ -229,6 +229,37 @@ python -m src.prioritize        :: retention queue for the latest period -> repo
 `src.train` takes about 2 minutes on a laptop, mostly for the CatBoost grid. The other steps take a few
 seconds each.
 
+### Notebooks (raw data -> modelling files)
+
+The notebooks in `notebooks/` show how the raw file became the modelling files. They are saved with all
+outputs and charts, so they can be read on GitHub without running anything. Run them **in this order**, because
+each one reads the output of the previous one:
+
+| # | Notebook | What it does | Writes |
+|---|---|---|---|
+| 1 | `01_data_cleaning_preprocessing.ipynb` | Raw file (1,050 rows) -> clean data: removes 30 duplicate rows, drops the duplicate `bill_amount` column, fixes negative charges/usage/discounts, sets out-of-range CSAT to missing, unifies `contract_type` / `payment_method` labels, splits by time (Jan-Aug / Sep-Oct / Nov-Dec 2025), then fills missing values with values learned on **train only**. | `data/processed/{train,validation,test}_clean.csv`, `reports/cleaning_log.csv` |
+| 2 | `02_eda.ipynb` | Churn rate overall, over time and by segment; churned vs stayed for numeric columns; behaviour-change warning signs; correlation heatmap; single-feature ROC-AUC; data-quality notes; key insights linked to features. | `reports/figures/eda_*.png` |
+| 3 | `03_feature_engineering_selection.ipynb` | Builds about 40 engineered features, selects features on train (correlation filter, rare-feature filter, L1 logistic regression with `TimeSeriesSplit(4)`), compares the result with the 24 features in use, rebuilds the final tables and checks them against `data/*_final.csv` column by column. | `data/processed/{train,validation,test}_rebuilt.csv` |
+
+```cmd
+venv\Scripts\activate
+jupyter nbconvert --to notebook --execute --inplace notebooks\01_data_cleaning_preprocessing.ipynb
+jupyter nbconvert --to notebook --execute --inplace notebooks\02_eda.ipynb
+jupyter nbconvert --to notebook --execute --inplace notebooks\03_feature_engineering_selection.ipynb
+```
+
+If Jupyter starts a kernel from another Python installation (for example a "No module named seaborn" error),
+register the project kernel once with `python -m ipykernel install --sys-prefix --name python3`.
+
+- `data/processed/` holds the notebook outputs. The modelling files `data/*_final.csv` are never overwritten.
+- `reports/cleaning_log.csv` lists every cleaning step with the number of rows/values affected, the action and
+  the reason.
+- Reproducibility: the rebuilt files match `data/*_final.csv` on 23 of 24 features exactly (99.98% of feature
+  cells overall, target 100%). The only differences are 5 validation/test values of `usage_change_pct_m3_to_m1`
+  for customers whose raw `usage_hours_m1` was negative. The notebook uses the absolute value; the original
+  files replaced those values with `usage_hours_m2`. No training row differs. Notebook 3 also shows that the
+  20 missing raw `usage_hours_m3` values were filled from `usage_hours_m2`.
+
 ### Start the API
 
 ```cmd
@@ -338,6 +369,8 @@ customer-churn-hcltech/
 |-- requirements.txt           pinned, tested versions
 |-- .streamlit/config.toml     light theme, blue accent
 |-- data/                      train/validation/test files used for modelling; raw/ for verification only
+|   `-- processed/             notebook outputs: *_clean.csv (notebook 01), *_rebuilt.csv (notebook 03)
+|-- notebooks/                 01 cleaning, 02 EDA, 03 feature engineering & selection (run in order)
 |-- docs/                      problem statement (not committed by default)
 |-- src/
 |   |-- config.py              paths, the 24 features, category values, seeds, segment settings
@@ -350,7 +383,7 @@ customer-churn-hcltech/
 |   |-- prioritize.py          top-K / threshold metrics, gain curve, risk categories, retention queue
 |   `-- predict.py             loads the bundle and scores rows (shared by API and dashboard)
 |-- models/churn_model_bundle.joblib   selected model + calibrator + threshold + training defaults + candidates
-|-- reports/                   CSV/JSON/TXT results and figures/ (PNG)
+|-- reports/                   CSV/JSON/TXT results (incl. cleaning_log.csv) and figures/ (PNG, incl. eda_*.png)
 `-- tests/                     pytest suite
 ```
 
