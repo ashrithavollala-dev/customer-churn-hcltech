@@ -9,7 +9,7 @@ threshold and capacity can be changed without retraining. The work includes:
 - probability calibration, capacity (top-K) and lift analysis, and segmented error analysis
 - SHAP explanations, both global and per customer
 - a FastAPI backend and a Streamlit dashboard that use the same inference code
-- Took the data set from kaggle
+
 
 ---
 
