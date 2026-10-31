@@ -1,6 +1,5 @@
 # Customer Churn Prediction and Retention Prioritization
 
-HCLTech Future Ready Data Science Hackathon - Use Case 3.
 
 The project gives each customer a probability of churning in the next 30 days. It explains which signals
 drive that estimate and builds a ranked list of customers for a retention team to review. The review
@@ -10,10 +9,7 @@ threshold and capacity can be changed without retraining. The work includes:
 - probability calibration, capacity (top-K) and lift analysis, and segmented error analysis
 - SHAP explanations, both global and per customer
 - a FastAPI backend and a Streamlit dashboard that use the same inference code
-
-> **The data is fully synthetic.** It was generated for this hackathon, and the churn label came from a
-> logistic risk formula. The results show the method works on this dataset; they do not predict how it
-> would perform on real customers.
+- Took the data set from kaggle
 
 ---
 
