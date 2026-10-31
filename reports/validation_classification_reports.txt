@@ -1,0 +1,29 @@
+== Logistic Regression - validation, top 20% capacity (score >= 0.662) ==
+              precision    recall  f1-score   support
+
+        stay      0.862     0.922     0.891       129
+       churn      0.706     0.558     0.623        43
+
+    accuracy                          0.831       172
+   macro avg      0.784     0.740     0.757       172
+weighted avg      0.823     0.831     0.824       172
+
+== CatBoost - validation, top 20% capacity (score >= 0.398) ==
+              precision    recall  f1-score   support
+
+        stay      0.841     0.899     0.869       129
+       churn      0.618     0.488     0.545        43
+
+    accuracy                          0.797       172
+   macro avg      0.729     0.694     0.707       172
+weighted avg      0.785     0.797     0.788       172
+
+== Selected Logistic Regression - validation, operating threshold 0.44 ==
+              precision    recall  f1-score   support
+
+        stay      0.869     0.922     0.895       129
+       churn      0.714     0.581     0.641        43
+
+    accuracy                          0.837       172
+   macro avg      0.791     0.752     0.768       172
+weighted avg      0.830     0.837     0.831       172

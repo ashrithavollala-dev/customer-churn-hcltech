@@ -1,0 +1,23 @@
+{
+  "selected_model": "logistic_regression",
+  "reason": "Logistic Regression validation PR-AUC 0.696 vs CatBoost 0.648; top-20% capture 0.558 vs 0.488. CatBoost is not better by more than 0.02 PR-AUC with equal or better capture, so the simpler, more transparent model is kept.",
+  "logistic_regression_params": {
+    "C": 0.03,
+    "class_weight": "balanced"
+  },
+  "catboost_params": {
+    "depth": 3,
+    "l2_leaf_reg": 10,
+    "iterations": 200
+  },
+  "operating_threshold": 0.44,
+  "threshold_rule": "maximise F1 on validation probabilities",
+  "validation_brier_raw": 0.15468263451414924,
+  "validation_brier_calibrated_cv": 0.12940576546024238,
+  "calibration_applied": true,
+  "validation_mean_predicted_raw": 0.3949752611529706,
+  "validation_mean_predicted_calibrated_cv": 0.24911718242163744,
+  "validation_observed_churn_rate": 0.25,
+  "platt_slope": 1.1455708532255153,
+  "platt_intercept": -0.9137009348460641
+}

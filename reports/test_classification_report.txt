@@ -1,0 +1,10 @@
+Selected model: logistic_regression | threshold 0.44 (chosen on validation)
+
+              precision    recall  f1-score   support
+
+        stay      0.921     0.921     0.921       151
+       churn      0.625     0.625     0.625        32
+
+    accuracy                          0.869       183
+   macro avg      0.773     0.773     0.773       183
+weighted avg      0.869     0.869     0.869       183

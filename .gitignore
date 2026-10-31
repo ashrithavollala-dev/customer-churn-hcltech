@@ -1,0 +1,24 @@
+# Python / tooling
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+catboost_info/
+.ipynb_checkpoints/
+
+# Secrets (never commit)
+.streamlit/secrets.toml
+.env
+
+# Original uploads kept in the project root; the repository uses the copies in data/
+/train_final.csv
+/validation_final.csv
+/test_final.csv
+/customer_churn_raw_1050.csv
+/CustomerChurnPrediction_DS_Usecase3.docx
+# Problem statement: commit only if the organisers allow it to be published
+docs/*.docx
+
+# Packaging
+*.zip

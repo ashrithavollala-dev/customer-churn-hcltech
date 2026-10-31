@@ -1,0 +1,4 @@
+model,pr_auc_train_minus_val,roc_auc_train_minus_val
+Dummy (prior),-0.022932330827067665,0.0
+Logistic Regression,0.03017259523530036,0.0511799669416535
+CatBoost,0.13312269132768317,0.09818200787839304

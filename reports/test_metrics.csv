@@ -1,0 +1,2 @@
+rows,churners,pr_auc,roc_auc,brier,mean_predicted,observed_rate,precision_at_top20pct,recall_at_top20pct,lift_at_top20pct,threshold,flagged,precision,recall,f1,true_positives,false_positives,false_negatives,true_negatives,model,probability
+183,32,0.7327005045601311,0.8934188741721855,0.09123748797090768,0.22739514732163596,0.17486338797814208,0.5675675675675675,0.65625,3.2457770270270268,0.44,32,0.625,0.625,0.625,20,12,12,139,logistic_regression,calibrated

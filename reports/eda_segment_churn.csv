@@ -1,0 +1,27 @@
+segment,segment_value,customers,churners,churn_rate
+contract_type,Month-to-month,574,163,0.28397212543554007
+contract_type,One year,262,50,0.19083969465648856
+contract_type,Two year,184,13,0.07065217391304347
+tenure_band,0-6m,69,18,0.2608695652173913
+tenure_band,13-24m,298,68,0.22818791946308725
+tenure_band,25m+,487,93,0.19096509240246407
+tenure_band,7-12m,166,47,0.28313253012048195
+region,East,243,64,0.26337448559670784
+region,North,247,47,0.1902834008097166
+region,South,288,74,0.2569444444444444
+region,Unknown,12,2,0.16666666666666666
+region,West,230,39,0.16956521739130434
+payment_method,Autopay,381,52,0.13648293963254593
+payment_method,Cash,115,32,0.2782608695652174
+payment_method,Credit card,219,55,0.2511415525114155
+payment_method,UPI,305,87,0.28524590163934427
+paperless_billing,No,443,88,0.1986455981941309
+paperless_billing,Yes,577,138,0.2391681109185442
+acquisition_channel,Call center,142,31,0.21830985915492956
+acquisition_channel,Online,433,97,0.22401847575057737
+acquisition_channel,Partner,104,23,0.22115384615384615
+acquisition_channel,Retail store,323,71,0.21981424148606812
+acquisition_channel,Unknown,18,4,0.2222222222222222
+billing_segment,1-2 issues,472,116,0.2457627118644068
+billing_segment,3+ issues,96,45,0.46875
+billing_segment,No billing issues,452,65,0.14380530973451328
