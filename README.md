@@ -1,6 +1,6 @@
 # Customer Churn Prediction and Retention Prioritization
 
-
+**Live demo:** https://customer-churn-prediction-hcl.streamlit.app
 The project gives each customer a probability of churning in the next 30 days. It explains which signals
 drive that estimate and builds a ranked list of customers for a retention team to review. The review
 threshold and capacity can be changed without retraining. The work includes:
