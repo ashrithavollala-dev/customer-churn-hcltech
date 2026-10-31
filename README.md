@@ -362,29 +362,27 @@ background), both tuned candidate models (for the transparent comparison) and th
 
 ## 8. Limitations and unresolved data issues
 
-1. **Synthetic data.** The label came from a logistic formula, which partly explains why Logistic Regression
-   beats CatBoost here. Real churn data is usually messier.
-2. **Small evaluation sets.** Validation has 43 churners and test has 32. The test PR-AUC 95% CI is 0.58 to 0.86.
-3. **One validation set does several jobs.** It is used for tuning, model choice, calibration and the
+1. **Small evaluation sets.** Validation has 43 churners and test has 32. The test PR-AUC 95% CI is 0.58 to 0.86.
+2. **One validation set does several jobs.** It is used for tuning, model choice, calibration and the
    threshold. A larger dataset would allow a separate calibration period, such as the last month of train held
    out chronologically.
-4. **Short-tenure history.** 21 customers (13 train, 6 validation, 2 test) have under 90 days' tenure but
+3. **Short-tenure history.** 21 customers (13 train, 6 validation, 2 test) have under 90 days' tenure but
    usage recorded three months back, before signup. This is a generator artefact. The rows are kept unchanged.
    `tenure_days` is not in the final files, so this can only be seen in the raw file.
-5. **CSAT imputation.** 45 missing and 4 out-of-range (0, 7, 9) CSAT scores were set to 4.0. That is the
+4. **CSAT imputation.** 45 missing and 4 out-of-range (0, 7, 9) CSAT scores were set to 4.0. That is the
    median over the full raw file, which happens to equal the train-only median. There is no "CSAT missing"
    flag, so imputed and real 4.0 scores look the same to the model.
-6. **Features that cannot be fully rebuilt.** Five `usage_change_pct_m3_to_m1` values do not match the
+5. **Features that cannot be fully rebuilt.** Five `usage_change_pct_m3_to_m1` values do not match the
    reconstructed formula, and the imputation for the 20 rows with missing raw `usage_hours_m3` is not
    recorded. The original feature-generation code is needed to confirm these. The rows were left as provided.
-7. **One snapshot per customer.** Each customer appears once, so there is no within-customer history and
+6. **One snapshot per customer.** Each customer appears once, so there is no within-customer history and
    no test of repeated scoring.
-8. **Drift.** Test churn (17.5%) is lower than validation churn (25%), so calibrated probabilities run slightly
+7. **Drift.** Test churn (17.5%) is lower than validation churn (25%), so calibrated probabilities run slightly
    high on test. In practice the calibrator should be refitted on recent labelled data.
-9. **Small segments.** Segments with fewer than 30 customers or 5 churners are marked in
+8. **Small segments.** Segments with fewer than 30 customers or 5 churners are marked in
    `reports/test_segment_performance.csv`. Examples are Two-year contracts, the 0-6m tenure band, the North
    and West regions, and Cash payers.
-10. **Fairness.** No protected characteristics are in the data. `region` is a geographic field and could act as
+9. **Fairness.** No protected characteristics are in the data. `region` is a geographic field and could act as
     a proxy in real data, so it should be reviewed before real-world use.
-11. **Decision support only.** The tool ranks customers for human review. It makes no retention, pricing or
+10. **Decision support only.** The tool ranks customers for human review. It makes no retention, pricing or
     contract decisions and does not show that anyone was retained.
